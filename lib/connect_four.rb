@@ -5,6 +5,7 @@ class Board
     end
 
     def print_game
+        puts
         print "|"
         (1..7).each do |num|
             print " #{num} "
@@ -17,7 +18,7 @@ class Board
                 if symbol == " "
                     print "   "
                 else
-                    print "#{symbol}"
+                    print " #{symbol} "
                 end
             end
             print "|"
@@ -37,12 +38,12 @@ class Board
     end
 
     def place_move(col, symbol)
-        if @gameboard[0][col] != "   "
+        if @gameboard[0][col-1] != " "
            raise "Column is already full"
         end
         5.downto(0) do |index|
-            if @gameboard[index][col] == " " 
-                @gameboard[index][col] = symbol
+            if @gameboard[index][col-1] == " " 
+                @gameboard[index][col-1] = symbol
                 return
             end
         end
@@ -69,7 +70,4 @@ class Player
     
 end
 
-board = Board.new
-board.init_new_gameboard
-board.print_game
 
