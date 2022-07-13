@@ -1,7 +1,7 @@
 class Board
     @gameboard = nil
     def init_new_gameboard
-        @gameboard = Array.new(6, Array.new(7, " "))
+        @gameboard = Array.new(6) { Array.new(7, " ") }
     end
 
     def print_game
@@ -14,12 +14,40 @@ class Board
         @gameboard.each do |array|
             print "|"
             array.each do |symbol|
-                print "   " if symbol == " "
+                if symbol == " "
+                    print "   "
+                else
+                    print "#{symbol}"
+                end
             end
             print "|"
             puts   
         end   
     end
+
+    def check_winner?
+        (1..6).each do |i|
+            (1..7).each do |j|
+                #0pi win(unit circle)
+                continue if(j > 4)
+                if @gameboard[i][j] == @gameboard[i][j+1] 
+                end
+            end
+        end
+    end
+
+    def place_move(col, symbol)
+        if @gameboard[0][col] != "   "
+           raise "Column is already full"
+        end
+        5.downto(0) do |index|
+            if @gameboard[index][col] == " " 
+                @gameboard[index][col] = symbol
+                return
+            end
+        end
+    end
+
     attr_reader :gameboard
 end
 
@@ -35,12 +63,13 @@ class Player
             puts "Your move wasn't a valid column, enter a valid column"
             column = gets.chomp.to_i
         end
-        puts column
+        return column
     end
+
+    
 end
 
 board = Board.new
 board.init_new_gameboard
 board.print_game
-player1 = Player.new("x")
-player1.get_move
+
