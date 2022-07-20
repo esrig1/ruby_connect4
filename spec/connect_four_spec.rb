@@ -16,6 +16,26 @@ describe Board do
             expect(board.gameboard[4][1]).to eql("x")
         end
 
+        it "correctly places a piece in the first column" do
+            board.place_move(1, "x")
+            expect(board.gameboard[5][0]).to eql("x")
+        end
+
+        it "correctly places a piece in the last column" do
+            board.place_move(7, "x")
+            expect(board.gameboard[5][6]).to eql("x")
+        end
+
+        it "correctly places a piece in the first column when one currently exists" do
+            board.place_move(1, "x")
+            expect(board.gameboard[4][0]).to eql("x")
+        end
+
+        it "correctly places a piece in the last column when one currently exists" do
+            board.place_move(7, "x")
+            expect(board.gameboard[4][6]).to eql("x")
+        end
+
         it "raises an error when column is full" do
             board.place_move(2, "x")
             board.place_move(2, "x")
