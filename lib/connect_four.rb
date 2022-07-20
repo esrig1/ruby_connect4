@@ -43,9 +43,23 @@ class Board
                         return true
                     end
                 end
-                #check if 4 pieces of the same peices are diagonal with a positive slop (pi/4 on unit circle)
-                if(j < 5 && i > 2)
+                #check if 4 pieces of the same peices are diagonal with a positive slope (pi/4 on unit circle)
+                if(j < 4 && i > 2)
                     check_arr = [@gameboard[i][j], @gameboard[i-1][j+1], @gameboard[i-2][j+2], @gameboard[i-3][j+3]]
+                    if check_arr.uniq.length == 1 && check_arr[0] != " "
+                        return true
+                    end
+                end
+                #check if 4 of the same pieces are vertical from eachother
+                if(i < 3)
+                    check_arr = [@gameboard[i][j], @gameboard[i+1][j], @gameboard[i+2][j], @gameboard[i+3][j]]
+                    if check_arr.uniq.length == 1 && check_arr[0] != " "
+                        return true
+                    end
+                end
+                #check if 4 pieces of the same peices are diagonal with a negative slope (3pi/4 on unit circle)
+                if(j < 4 && i < 3)
+                    check_arr = [@gameboard[i][j], @gameboard[i+1][j+1], @gameboard[i+2][j+2], @gameboard[i+3][j+3]]
                     if check_arr.uniq.length == 1 && check_arr[0] != " "
                         return true
                     end
@@ -106,7 +120,7 @@ def execute_game(board, p1, p2)
             break
         end
     end
-end
+end  
 =begin
 p1 = Player.new("x")
 p2 = Player.new("o")
